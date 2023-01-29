@@ -1,6 +1,10 @@
 var ball = document.getElementById("ball");
-var leftPaddle = document.getElementById("left-paddle");
-var rightPaddle = document.getElementById("right-paddle");
+var lPaddle = document.getElementById("left-paddle");
+var rPaddle = document.getElementById("right-paddle");
+var wall = document.getElementById("pong-canvas");
+var isBallMovingL = true;
+var hasHitLWall = false;
+var hasHitRWall = false;
 addEventListener("keydown", function (_a) {
     var key = _a.key;
     switch (key) {
@@ -22,19 +26,15 @@ addEventListener("keydown", function (_a) {
     }
 });
 function startGame() {
-    setInterval(moveBall, 50);
+    setInterval(moveBall, 10);
 }
 function moveBall() {
-    BallHasCollidedWithRightPaddle();
-    ball.style.left = "".concat((ball.offsetLeft + 10).toString(), "px");
+    hasHitLWall = ball.offsetLeft < lPaddle.offsetWidth + lPaddle.offsetLeft;
+    hasHitRWall = ball.offsetLeft > (screen.width - (screen.width - rPaddle.offsetLeft) - rPaddle.offsetWidth);
+    isBallMovingL = hasHitLWall || hasHitRWall ? !isBallMovingL : isBallMovingL;
+    ball.style.left = "".concat((ball.offsetLeft + (isBallMovingL ? -2 : 2)).toString(), "px");
 }
-function BallHasCollidedWithRightPaddle() {
-    var hasCollided = Math.abs(ball.offsetLeft - rightPaddle.offsetLeft) < 10 && Math.abs(ball.offsetLeft - rightPaddle.offsetLeft) < 20;
-    if (hasCollided) {
-        // determine whether the player has died
-        // in that case end the game and increment the score 
-        // or the player caught the ball    
-        // in which case you reverse the ball using physics
-    }
-}
+function hasCollidedWithTopWall() { }
+function hasCollidedWithBottomWall() { }
+function hasCollidedWithLeftWall() { }
 startGame();
