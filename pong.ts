@@ -1,9 +1,11 @@
-
-
 const ball = document.getElementById("ball") as HTMLDivElement
-const leftPaddle = document.getElementById("left-paddle") as HTMLDivElement
-const rightPaddle = document.getElementById("right-paddle") as HTMLDivElement
+const lPaddle = document.getElementById("left-paddle") as HTMLDivElement
+const rPaddle = document.getElementById("right-paddle") as HTMLDivElement
+const wall = document.getElementById("pong-canvas") as HTMLElement;
 
+let isBallMovingL = true;
+let hasHitLWall = false;
+let hasHitRWall = false;
 
 addEventListener("keydown", function({key}) {
     switch(key){
@@ -26,26 +28,22 @@ addEventListener("keydown", function({key}) {
 })
 
 function startGame() {
-    setInterval(moveBall,50);
-    
+    setInterval(moveBall,10);  
 }
 
 function moveBall() {
-    BallHasCollidedWithRightPaddle()
-    ball.style.left = `${(ball.offsetLeft + 10).toString()}px`;
-}
-
-function BallHasCollidedWithRightPaddle(){
-
-    const hasCollided = Math.abs(ball.offsetLeft - rightPaddle.offsetLeft) < 10 && Math.abs(ball.offsetLeft - rightPaddle.offsetLeft) < 20 
+    hasHitLWall = ball.offsetLeft < lPaddle.offsetWidth + lPaddle.offsetLeft;
+    hasHitRWall = ball.offsetLeft > (screen.width - (screen.width - rPaddle.offsetLeft) - rPaddle.offsetWidth);
     
-    if(hasCollided){
-        // determine whether the player has died
-            // in that case end the game and increment the score 
-        // or the player caught the ball    
-            // in which case you reverse the ball using physics
-        
-    }
+    isBallMovingL = hasHitLWall || hasHitRWall ? !isBallMovingL : isBallMovingL; 
+
+    ball.style.left = `${(ball.offsetLeft + (isBallMovingL ? -2 : 2)).toString()}px`;
 }
+
+function hasCollidedWithTopWall(){}
+
+function hasCollidedWithBottomWall(){}
+
+function hasCollidedWithLeftWall(){}
 
 startGame()
