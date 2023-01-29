@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    background-color: rgb(33, 33, 37);
+    width: 100vw;
+    height:100vh;
+}
+
+.paddle {
+    position: absolute;
+    width:1vh;
+    height: 10vh;
+    border-radius:1vh;
+    top: 45vh;
+}
+
+.white{
+    background-color: whitesmoke;
+}
+
+#left-paddle{ 
+    left: 1vw;
+}
+
+#right-paddle {
+    right: 1vw;
+}
+
+#ball {
+    position: absolute;
+    left: 48vw;
+    top: 48vh;
+    border-radius:50%;
+    width:2vh;
+    height:2vh;
+}
